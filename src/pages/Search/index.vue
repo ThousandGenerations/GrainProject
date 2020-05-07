@@ -1,5 +1,8 @@
 <template>
-  <div>Search</div>
+  <div>
+    <TypeNav />
+    <h2>`keyword+ {{ $route.params }}`</h2>
+  </div>
 </template>
 
 <script>

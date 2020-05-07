@@ -7,8 +7,12 @@
           <p>尚品汇欢迎您！</p>
           <p>
             <span>请</span>
-            <a href="###">登录</a>
-            <a href="###" class="register">免费注册</a>
+            <router-link to="/login">
+              <a href="###">登录</a>
+            </router-link>
+            <router-link to="/register">
+              <a href="###" class="register">免费注册</a>
+            </router-link>
           </p>
         </div>
         <div class="typeList">
@@ -26,14 +30,16 @@
     <!--头部第二行 搜索区域-->
     <div class="bottom">
       <h1 class="logoArea">
-        <a class="logo" title="尚品汇" href="###" target="_blank">
-          <img src="./images/logo.png" alt />
-        </a>
+        <router-link to="/">
+          <a class="logo" title="尚品汇" href="###" target="_blank">
+            <img src="./images/logo.png" alt />
+          </a>
+        </router-link>
       </h1>
       <div class="searchArea">
         <form action="###" class="searchForm">
-          <input type="text" id="autocomplete" class="input-error input-xxlarge" />
-          <button class="sui-btn btn-xlarge btn-danger" type="button">搜索</button>
+          <input type="text" id="autocomplete" class="input-error input-xxlarge" v-model="keyword" />
+          <button class="sui-btn btn-xlarge btn-danger" type="button" @click="search">搜索</button>
         </form>
       </div>
     </div>
@@ -42,7 +48,35 @@
 
 <script>
 export default {
-  name: "Header"
+  name: "Header",
+  data() {
+    return {
+      keyword: "atguigu"
+    };
+  },
+  methods: {
+    search() {
+      // 使用编程式路由  keyword有值就携带
+      const keyword = this.keyword;
+      // console.log(keyword);
+      //准备 location 对象
+      const location = {
+        name: "search"
+      };
+      if (keyword) {
+        location.params = { keyword };
+        console.log(location.params);
+      }
+      //携带 query 参数
+      // console.log(this.$route);
+      const { query } = this.$route;
+      //添加到 location 对象上
+      location.query = query;
+      //跳转
+      this.$router.push(location);
+      // console.log(location);
+    }
+  }
 };
 </script>
 
